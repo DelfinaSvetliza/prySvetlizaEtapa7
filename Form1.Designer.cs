@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Nodo0");
             this.btnConexion = new System.Windows.Forms.Button();
             this.trvMonstruos = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
@@ -47,10 +46,6 @@
             // 
             this.trvMonstruos.Location = new System.Drawing.Point(12, 12);
             this.trvMonstruos.Name = "trvMonstruos";
-            treeNode1.Name = "Nodo0";
-            treeNode1.Text = "Nodo0";
-            this.trvMonstruos.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
             this.trvMonstruos.Size = new System.Drawing.Size(412, 399);
             this.trvMonstruos.TabIndex = 1;
             // 

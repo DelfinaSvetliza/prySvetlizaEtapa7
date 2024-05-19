@@ -30,7 +30,7 @@ namespace prySvetlizaEtapa7
 
         private void btnConexion_Click(object sender, EventArgs e)
         {
-            string result = "";
+          
             try
             {
                 // Verificar conexión
@@ -50,7 +50,7 @@ namespace prySvetlizaEtapa7
                 {
                     while (mySqlDataReader.Read())
                     {
-                        // result += mySqlDataReader.GetString(0) + "\n";
+                       
                         string tipoMonstruo = mySqlDataReader.GetString(0);
                         string nombreMonstruo = mySqlDataReader.GetString(1);
 
@@ -61,15 +61,7 @@ namespace prySvetlizaEtapa7
                         parentNode.Nodes.Add(childNode);
                     }
                 }
-                
-                if (!string.IsNullOrEmpty(result))
-                {
-                    MessageBox.Show(result);
-                }
-                else
-                {
-                    MessageBox.Show("No se encontraron resultados.");
-                }
+              
             }
             catch (Exception ex)
             {
@@ -79,42 +71,48 @@ namespace prySvetlizaEtapa7
         }
         private void trvMonstruos_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node.Level == 1)  // Check if selected node is a monster name (Level 1)
+            if (e.Node.Level == 1)  // verifica el nodo esta en el nivel 1
             {
                 string nombreMonstruo = e.Node.Text;
 
-                // Execute query to retrieve monster details for the selected name
+                // hace la consulta y se establece la conexion
                 string consulta = "SELECT size, type, alignment, armor_class, hit_points FROM monstruario WHERE name = @nombreMonstruo";
                 MySqlCommand mySqlCommand = new MySqlCommand(consulta);
                 mySqlCommand.Connection = mConexion.getConexion();
                 mySqlCommand.Parameters.AddWithValue("@nombreMonstruo", nombreMonstruo);
 
-                string detalles = "";  // String to store details
-
+                
+                //using asegura que el datareader se cierre despues del uso 
                 using (MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader())
                 {
                     if (mySqlDataReader.Read())
                     {
-                        detalles = $"Tamaño: {mySqlDataReader.GetString(0)}\n";
-                        detalles += $"Tipo: {mySqlDataReader.GetString(1)}\n";
-                        detalles += $"Alineación: {mySqlDataReader.GetString(2)}\n";
-                        detalles += $"Clase de Armadura: {mySqlDataReader.GetInt32(3)}\n";
-                        detalles += $"Puntos de Vida: {mySqlDataReader.GetInt32(4)}\n";
+                        // crea el nodo hijo para cada detalle
+                        TreeNode sizeNode = new TreeNode($"Tamaño: {mySqlDataReader.GetString(0)}");
+                        e.Node.Nodes.Add(sizeNode);
+
+                        TreeNode typeNode = new TreeNode($"Tipo: {mySqlDataReader.GetString(1)}");
+                        e.Node.Nodes.Add(typeNode);
+
+                        TreeNode alignmentNode = new TreeNode($"Alineación: {mySqlDataReader.GetString(2)}");
+                        e.Node.Nodes.Add(alignmentNode);
+
+                        TreeNode armorClassNode = new TreeNode($"Clase de Armadura: {mySqlDataReader.GetInt32(3)}");
+                        e.Node.Nodes.Add(armorClassNode);
+
+                        TreeNode hitPointsNode = new TreeNode($"Puntos de Vida: {mySqlDataReader.GetInt32(4)}");
+                        e.Node.Nodes.Add(hitPointsNode);
                     }
                     else
                     {
-                        detalles = "no se encontraron detalles";
+                        // mensaje para cuando no se crea
+                        TreeNode NodoSinDetalle = new TreeNode("No se encontraron detalles");
+                        e.Node.Nodes.Add(NodoSinDetalle);
                     }
                 }
+                // se expande el tree para mostrar los detalles
+                e.Node.Expand();
 
-                if (!string.IsNullOrEmpty(detalles))
-                {
-                    MessageBox.Show(detalles);
-                }
-                else
-                {
-                    MessageBox.Show("No se encontraron detalles para el monstruo seleccionado.");
-                }
             }
         }
 
