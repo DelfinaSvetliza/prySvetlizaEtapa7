@@ -28,24 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Nodo0");
             this.btnConexion = new System.Windows.Forms.Button();
+            this.trvMonstruos = new System.Windows.Forms.TreeView();
             this.SuspendLayout();
             // 
             // btnConexion
             // 
-            this.btnConexion.Location = new System.Drawing.Point(379, 302);
+            this.btnConexion.Location = new System.Drawing.Point(644, 386);
             this.btnConexion.Name = "btnConexion";
             this.btnConexion.Size = new System.Drawing.Size(144, 52);
             this.btnConexion.TabIndex = 0;
-            this.btnConexion.Text = "button1";
+            this.btnConexion.Text = "conexion";
             this.btnConexion.UseVisualStyleBackColor = true;
             this.btnConexion.Click += new System.EventHandler(this.btnConexion_Click);
+            // 
+            // trvMonstruos
+            // 
+            this.trvMonstruos.Location = new System.Drawing.Point(12, 12);
+            this.trvMonstruos.Name = "trvMonstruos";
+            treeNode1.Name = "Nodo0";
+            treeNode1.Text = "Nodo0";
+            this.trvMonstruos.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1});
+            this.trvMonstruos.Size = new System.Drawing.Size(412, 399);
+            this.trvMonstruos.TabIndex = 1;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.trvMonstruos);
             this.Controls.Add(this.btnConexion);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -57,6 +71,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnConexion;
+        private System.Windows.Forms.TreeView trvMonstruos;
     }
 }
 
